@@ -1,30 +1,35 @@
+version: "2"
 linters:
   enable:
-    - gofmt        # Keep basic formatting
-    - govet        # Reports suspicious constructs
-    - errcheck     # Checks for unchecked errors
-    - staticcheck  # Advanced static analysis
-    - gosimple     # Simplifies code
-    - bodyclose    # Checks whether HTTP response bodies are closed
-    - gocritic     # Checks for performance optimizations
-    - gosec        # Security checks
-    - prealloc     # Suggests slice preallocation
-
-linters-settings:
-  gocritic:
-    enabled-tags:
-      - performance
-      - diagnostic
-    disabled-checks:
-      - commentedOutCode
-  gosec:
-    excludes:
-      - G104  # Duplicate of errcheck
-
-run:
-  timeout: 5m
-
+    - bodyclose
+    - gocritic
+    - gosec
+    - prealloc
+  settings:
+    gocritic:
+      disabled-checks:
+        - commentedOutCode
+      enabled-tags:
+        - performance
+        - diagnostic
+    gosec:
+      excludes:
+        - G104
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
 issues:
-  exclude-use-default: false
   max-issues-per-linter: 0
-  max-same-issues: 0 
+  max-same-issues: 0
+formatters:
+  enable:
+    - gofmt
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
